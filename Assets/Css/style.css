@@ -317,7 +317,7 @@ html {
 .card .crypto-rn {
 	display: flex;
 	justify-content: space-evenly;
-	margin: 9px 0;
+	margin: 45px 0;
 }
 
 .card .crypto-rn .crypto-rank {

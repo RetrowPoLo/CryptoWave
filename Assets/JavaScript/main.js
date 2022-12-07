@@ -53,8 +53,6 @@ $(document).ready(async function () {
 	let volumeTradeDay;
 	let volumeTradeDayData = [];
 
-	let cryptoIcon;
-
 	// ===========================================================================================================================================
 	// Function that create card
 	let card;
@@ -70,13 +68,9 @@ $(document).ready(async function () {
 	for (let i = 0; i < cryptoNumber; i++) {
 		cardClass = `crypto-${i}`;
 		if (i == 0) {
-			card = `<div class="card ${cardClass}"> <img class="crypto-img crypto-logo-${i}" src="" alt="" /> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
-			// card = `<div class="card ${cardClass}"> <div class="welle"></div> <img class="crypto-img crypto-logo-${i}" src="" alt="" /> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
+			card = `<div class="card ${cardClass}"> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
 		} else {
-			card =
-				card +
-				`<div class="card ${cardClass}"> <img class="crypto-img crypto-logo-${i}" src="" alt="" /> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
-			// `<div class="card ${cardClass}"> <div class="welle"></div> <img class="crypto-img crypto-logo-${i}" src="" alt="" /> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
+			card = card + `<div class="card ${cardClass}"> <div class="crypto-rn crypto-rank-name-${i}"></div> </div>`;
 		}
 	}
 
@@ -108,8 +102,6 @@ $(document).ready(async function () {
 					// 		- display the crypto logo
 					// 		- display a generic icon if the logo isn't in the api
 					symbolData.push(element.symbol.toLowerCase());
-					cryptoIcon = symbolData[element.rank - 1];
-					TopIconRequest(element.rank, element.name);
 					$(`.crypto-${element.rank - 1}`).append(`<h2 class="crypto-symbol">${symbolData[element.rank - 1]}</h2>`);
 
 					// Get the price in usd then call a function to round it to 2 decimals and add it to html
@@ -150,29 +142,6 @@ $(document).ready(async function () {
 					);
 				});
 			});
-	}
-
-	// ===========================================================================================================================================
-	// Async function that get from an api the crypto selected icon
-	// It takes an index to add the img and the symbol of the crypto to get
-	async function TopIconRequest(index, name) {
-		let fetchResult = await fetch(`https://cryptoflash-icons-api.herokuapp.com/128/icon/${cryptoIcon}`);
-
-		// Check if the status of the fetch result is 404 ( => doesn't exist or not yet added to the api)
-		// If so, it generate a generic icon from the api and add it to html
-		if (fetchResult.status == 404) {
-			$(`.crypto-logo-${index - 1}`).attr({
-				src: 'https://cryptoflash-icons-api.herokuapp.com/128/generic',
-				alt: 'Generic crypto icon',
-			});
-			return;
-		}
-
-		// Add the crypto icon to the img tag in the card with an alternative text for accessibility
-		$(`.crypto-logo-${index - 1}`).attr({
-			src: `${fetchResult.url}`,
-			alt: `${name} crypto icon`,
-		});
 	}
 
 	// ===========================================================================================================================================
