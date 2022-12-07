@@ -1,0 +1,370 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
+
+html {
+	color: white;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.chart {
+	margin-top: 30vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ================== Header Css Section ================== */
+/* ======== Header Title Animation Css Section ======== */
+
+.header-title {
+	background-color: #303030;
+	height: 80px;
+	border-radius: 2vh;
+	font-family: "Nunito", sans-serif;
+}
+
+.loading {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 100pt;
+	text-align: center;
+	height: 120px;
+	line-height: 110px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 100px;
+	bottom: 0;
+	display: block;
+}
+
+.wave-title {
+	background-image: url("https://webdevtrick.com/wp-content/uploads/water-wave.png");
+	-moz-background-clip: text;
+	-o-background-clip: text;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-shadow: 0px 0px rgba(255, 255, 255, 0.06);
+	-webkit-animation: wave-animation 1s infinite linear,
+		loading-animation 10s infinite linear alternate;
+	animation: wave-animation 1s infinite linear,
+		loading-animation 10s infinite linear alternate;
+	background-size: 200px 100px;
+	background-repeat: repeat-x;
+	opacity: 1;
+}
+
+@-webkit-keyframes wave-animation {
+	0% {
+		background-position: 0 bottom;
+	}
+
+	100% {
+		background-position: 200px bottom;
+	}
+}
+
+@keyframes wave-animation {
+	0% {
+		background-position: 0 bottom;
+	}
+
+	100% {
+		background-position: 200px bottom;
+	}
+}
+
+@-webkit-keyframes loading-animation {
+	0% {
+		background-size: 200px 0px;
+	}
+
+	100% {
+		background-size: 200px 200px;
+	}
+}
+
+@keyframes loading-animation {
+	0% {
+		background-size: 200px 0px;
+	}
+
+	100% {
+		background-size: 200px 200px;
+	}
+}
+
+/* ======== Header Texte Animation Css Section ======== */
+
+.header-txt {
+	font-family: "Nunito", sans-serif;
+	width: 65vw;
+	font-size: 30px;
+}
+
+/* ======== Header Wave Animation Css Section ======== */
+
+.wrapper {
+	width: 100%;
+}
+
+.container {
+	width: 100vw;
+	height: 95vh;
+	text-align: center;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.herobg {
+	position: relative;
+	overflow: hidden;
+	background: linear-gradient(10deg,
+			rgba(84, 58, 183, 1) 0%,
+			rgba(0, 172, 193, 1) 100%);
+}
+
+.wave {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	background: url(https://i.postimg.cc/XqYkMxZ1/3.png);
+}
+
+/*Change speed of animation*/
+.wave.wave1 {
+	-webkit-animation: animate 30s linear infinite;
+	animation: animate 30s linear infinite;
+	z-index: 1000;
+	opacity: 1;
+	-webkit-animation-delay: 0s;
+	animation-delay: 0s;
+	bottom: 0;
+}
+
+.wave.wave2 {
+	-webkit-animation: animate2 15s linear infinite;
+	animation: animate2 15s linear infinite;
+	z-index: 999;
+	opacity: 0.5;
+	-webkit-animation-delay: -5s;
+	animation-delay: -5s;
+	bottom: 10px;
+}
+
+.wave.wave3 {
+	-webkit-animation: animate 30s linear infinite;
+	animation: animate 30s linear infinite;
+	z-index: 998;
+	opacity: 0.2;
+	-webkit-animation-delay: -2s;
+	animation-delay: -2s;
+	bottom: 15px;
+}
+
+.wave.wave4 {
+	-webkit-animation: animate2 5s linear infinite;
+	animation: animate2 5s linear infinite;
+	z-index: 997;
+	opacity: 0.7;
+	-webkit-animation-delay: -5s;
+	animation-delay: -5s;
+	bottom: 20px;
+}
+
+@-webkit-keyframes animate {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: 1000px;
+	}
+}
+
+@keyframes animate {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: 1000px;
+	}
+}
+
+@-webkit-keyframes animate2 {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: -1000px;
+	}
+}
+
+@keyframes animate2 {
+	0% {
+		background-position-x: 0;
+	}
+
+	100% {
+		background-position-x: -1000px;
+	}
+}
+
+/* ================== Wave Card Css Section ================== */
+
+.refresh {
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.refresh .refresh-btn {
+	background: rgb(253, 116, 108);
+	background: linear-gradient(90deg, rgba(253, 116, 108, 1) 0%, rgba(255, 144, 104, 1) 54%, rgba(255, 175, 147, 1) 95%);
+	background: -webkit-linear-gradient(90deg, rgba(253, 116, 108, 1) 0%, rgba(255, 144, 104, 1) 54%, rgba(255, 175, 147, 1) 95%);
+	box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.15);
+	border: none;
+	border-radius: 10px;
+	padding: 20px 25px;
+	color: #fff;
+	font-size: large;
+	font-weight: 900;
+	letter-spacing: 1.2px;
+	cursor: pointer;
+}
+
+.card-wrapper {
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	font-family: "Ubuntu", sans-serif;
+	align-items: center;
+	justify-content: center;
+	margin: 50px 0;
+}
+
+.card {
+	position: relative;
+	z-index: -2;
+	overflow: hidden;
+	height: 425px;
+	width: 300px;
+	margin: 15px;
+	background: #f1f1f1;
+	box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+	text-align: center;
+}
+
+.card h2 {
+	color: #3C3C3C;
+	font-weight: 500;
+}
+
+.card .crypto-img {
+	width: 70px;
+	margin: 12px 0;
+}
+
+.card .crypto-rn {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 9px 0;
+}
+
+.card .crypto-rn .crypto-rank {
+	font-weight: 700;
+}
+
+.card .crypto-rn .crypto-name {
+	color: #FD756C;
+	font-weight: 700;
+}
+
+.card .crypto-symbol {
+	display: none;
+}
+
+.card .crypto-price {
+	margin: 9px 0;
+}
+
+.card .crypto-change-percent {
+	margin: 9px 0;
+}
+
+.card .crypto-change-percent-down {
+	color: #F80000;
+}
+
+.card .crypto-change-percent-up {
+	color: #32CD32;
+}
+
+.card .day-percent {
+	color: #3C3C3C;
+}
+
+.card .crypto-marketcap {
+	display: flex;
+	flex-direction: column;
+	margin: 9px 0;
+}
+
+.card .crypto-volume-trade {
+	display: flex;
+	flex-direction: column;
+	margin: 9px 0;
+}
+
+.card .crypto-btn {
+	background-color: #fd746c;
+	background: linear-gradient(to left, #ff9068, #fd746c);
+	box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.15);
+	color: #fff;
+	border: none;
+	border-radius: 10px;
+	font-size: large;
+	font-weight: 900;
+	letter-spacing: 1.2px;
+	padding: 7px 10px;
+	margin-top: 5%;
+	cursor: pointer;
+}
+
+.btn-top {
+	position: fixed;
+	left: 96%;
+	bottom: 5%;
+	background-color: #fd746c;
+	background: linear-gradient(to left, #ff9068, #fd746c);
+	border: none;
+	box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+	padding: 10px 15px;
+	color: #fff;
+	font-size: large;
+	font-weight: 900;
+	cursor: pointer;
+}
+
+.btn-top:hover {
+	transform: translateY(-6px);
+}
+
+.btn-top a {
+	text-decoration: none;
+	color: inherit;
+}
