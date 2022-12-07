@@ -26,7 +26,7 @@ $(document).ready(async function () {
 	// ===========================================================================================================================================
 	// ======== GLOBAL VARIABLES ========
 	// Number of crypto to get from coincap api and add it to the html
-	let cryptoNumber = 10;
+	let cryptoNumber = 20;
 	$('.crypto-number-header').html(cryptoNumber);
 
 	// Create array that get value from the api :
