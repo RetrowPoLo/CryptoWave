@@ -1,3 +1,8 @@
+// Display a preloader until the document is ready
+$(window).on('load', function () {
+	$('.loader-container').fadeOut(1500);
+});
+
 $(document).ready(async function () {
 	// Select the html element with the id 'refresh-btn' and add an on click function that
 	// Refresh the page
