@@ -36,7 +36,7 @@ $(document).ready(async function () {
 
 	// Create array that get value from the api :
 	// 		Rank of the crypto, Name of the crypto, Symbol of the crypto, Price of the crypto, Change percent (24hr) of the crypto,
-	// 		MarketCap of the crypto, Volume traded (24hr) of the crypto
+	// 		MarketCap of the crypto, Volume traded (24hr) of the crypto and the id of the crypto
 	let rankData = [];
 	let nameData = [];
 	let symbolData = [];
@@ -52,6 +52,8 @@ $(document).ready(async function () {
 
 	let volumeTradeDay;
 	let volumeTradeDayData = [];
+
+	let idData = [];
 
 	// ===========================================================================================================================================
 	// Function that create card
@@ -82,7 +84,12 @@ $(document).ready(async function () {
 
 		// Fetch the api and convert the response into json
 		fetch(getTop)
-			.then((reponse) => reponse.json())
+			.then((reponse) => {
+				if (!reponse.ok) {
+					throw new Error(reponse.statusText);
+				}
+				return reponse.json();
+			})
 			.then((reponse) => {
 				reponse.data.forEach((element) => {
 					// Get rank data and add it to html
@@ -134,13 +141,57 @@ $(document).ready(async function () {
 						} $ </h2>`
 					);
 
+					// Get the id of the crypto to update their price in another function
+					idData.push(element.id);
+
 					// Add a button at the end of the crypto card to see chart from the selected crypto
 					$(`.crypto-${element.rank - 1}`).append(
 						`<button class="crypto-btn crypto-button-${
 							element.rank - 1
-						}"> See more <i class="fa-solid fa-chevron-right"></i> </button>`
+						}" aria-label="See more"> See more <i class="fa-solid fa-chevron-right"></i> </button>`
 					);
 				});
+			})
+			.catch((error) => {
+				// Log the error to the console
+				console.error(error);
+				// Add the coin back to the end of the array
+				coins.push(coin);
+			});
+	}
+
+	// ===========================================================================================================================================
+	// Function that upadate the price of the crypto every 10s one at the time
+	function CryptoPriceUpdate() {
+		// Get the next coin in the array of crypto data
+		let coin = idData.shift();
+		// Url to fetch
+		let updateTop = `https://api.coincap.io/v2/assets/${coin}`;
+		let newPrice;
+
+		// Fetch the url to update the price
+		fetch(updateTop)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(response.statusText);
+				}
+				return response.json();
+			})
+			.then((data) => {
+				newPrice = Round2Decimals(data.data.priceUsd);
+
+				$(`.crypto-${data.data.rank - 1}`)
+					.children('.crypto-price')
+					.html(`${newPrice} $`);
+
+				// Add the coin back to the end of the array
+				idData.push(coin);
+			})
+			.catch((error) => {
+				// Log the error to the console
+				console.error(error);
+				// Add the coin back to the end of the array
+				coins.push(coin);
 			});
 	}
 
@@ -180,6 +231,13 @@ $(document).ready(async function () {
 		return (+(value[0] + 'e' + (value[1] ? +value[1] - 2 : -2))).toFixed(2);
 	}
 
+	// ===========================================================================================================================================
+	// Function call :
+	// 		- Generate the crypto car
+	// 		- Get the primary information of the crypto and add it to the previously created card
+	// 		- Update the crypto price one at the time every 5s
 	Card();
 	await TopRequest();
+
+	setInterval(CryptoPriceUpdate, 5000);
 });
