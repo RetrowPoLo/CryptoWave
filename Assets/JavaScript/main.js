@@ -31,7 +31,7 @@ $(document).ready(async function () {
 	// ===========================================================================================================================================
 	// ======== GLOBAL VARIABLES ========
 	// Number of crypto to get from coincap api and add it to the html
-	let cryptoNumber = 20;
+	const cryptoNumber = 20;
 	$('.crypto-number-header').html(cryptoNumber);
 
 	// Create array that get value from the api :
@@ -167,6 +167,9 @@ $(document).ready(async function () {
 		let coin = idData.shift();
 		// Url to fetch
 		let updateTop = `https://api.coincap.io/v2/assets/${coin}`;
+
+		let cardPrice;
+		let oldPrice;
 		let newPrice;
 
 		// Fetch the url to update the price
@@ -178,11 +181,41 @@ $(document).ready(async function () {
 				return response.json();
 			})
 			.then((data) => {
+				// Add to a variable the jquery selector for the crypto price on the card
+				cardPrice = $(`.crypto-${data.data.rank - 1}`).children('.crypto-price');
+
+				oldPrice = priceData[data.data.rank - 1];
 				newPrice = Round2Decimals(data.data.priceUsd);
 
-				$(`.crypto-${data.data.rank - 1}`)
-					.children('.crypto-price')
-					.html(`${newPrice} $`);
+				// Compare the new crypto price with the old one and if he is inferior:
+				// 		- make it red and blink then back to normal
+				// 		- same with green if the new price is greater
+				if (newPrice < oldPrice) {
+					// Add red color
+					cardPrice.css({ color: '#F80000', 'font-weight': '800' });
+					// Blink effect
+					cardPrice.fadeTo(1000, 0.25, function () {
+						cardPrice.fadeTo(1000, 1.0);
+					});
+					// Back to normal after 2.3s
+					setTimeout(() => {
+						cardPrice.css({ color: '', 'font-weight': '500' });
+					}, 2300);
+				} else {
+					// Add green color
+					cardPrice.css({ color: '#32CD32', 'font-weight': '800' });
+					// Blink effect
+					cardPrice.fadeTo(1000, 0.25, function () {
+						cardPrice.fadeTo(1000, 1.0);
+					});
+					// Back to normal after 2.3s
+					setTimeout(() => {
+						cardPrice.css({ color: '', 'font-weight': '500' });
+					}, 2300);
+				}
+
+				// Change the price on the card
+				cardPrice.html(`${newPrice} $`);
 
 				// Add the coin back to the end of the array
 				idData.push(coin);
